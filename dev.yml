@@ -9,7 +9,9 @@
     - application
   vars:
     # Project
-    site_name: # Typically, the name of the github repo
+    site_name: # Directory where htdocs and application will live
+    git_org: elevatedthird # Name of the git user/organization
+    git_repo: # Name of the git repository
     drupal_root: site # Dir which has index.php
     git_branch: develop # This is the branch that will be deployed
     max_releases: 10 # Number of past releases to keep

@@ -16,6 +16,6 @@
     dest={{ sites_directory }}/{{ site_name }}/application/shared/repository
     version={{ git_branch }}
     accept_hostkey=yes
-    repo=ssh://git@github.com/elevatedthird/{{ site_name }}.git
+    repo=ssh://git@github.com/{{ git_org }}/{{ git_repo }}.git
   tags:
     - deploy
