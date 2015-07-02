@@ -9,4 +9,9 @@
         Allow from all
         AllowOverride All
     </Directory>
+
+{% for env_var in env_vars %}
+    SetEnv {{ env_var }}
+{% endfor %}
+
 </VirtualHost>
