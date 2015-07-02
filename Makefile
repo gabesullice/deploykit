@@ -1,10 +1,10 @@
 hosts=hosts
 flags=--ask-become-pass
 
-launch.prd: deploy.prd
+launch.prd:
 	ansible-playbook $(flags) -i $(hosts) -t launch prd.yml
 
-launch.dev: deploy.dev
+launch.dev:
 	ansible-playbook $(flags) -i $(hosts) -t launch dev.yml
 
 deploy.prd:
