@@ -1,7 +1,8 @@
 ---
 
 - name: ensure local settings file is present
-  sudo: yes
+  become: yes
+  become_method: sudo
   template:
     src=local-settings.j2
     dest={{ sites_directory }}/{{ site_name }}/application/shared/default/local-settings.inc

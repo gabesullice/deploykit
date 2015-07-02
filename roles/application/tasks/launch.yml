@@ -8,7 +8,8 @@
     group={{ file_group }}
     state=link
     force=yes
-  sudo: yes
+  become: yes
+  become_method: sudo
   tags:
     - launch
 
@@ -20,7 +21,8 @@
     group={{ file_group }}
     state=link
     force=yes
-  sudo: yes
+  become: yes
+  become_method: sudo
   tags:
     - launch
 
