@@ -4,8 +4,8 @@
   remote_user: dev3
   gather_facts: no
   roles:
-    - apache
-    - mysql
+    - apache # remove for plesk
+    - mysql # remove for blesk
     - application
   vars:
     # Project
@@ -23,6 +23,8 @@
 
     # Host apache
     site_domain: # domain name to put in vhost. Should NOT have www.
+    env_vars:
+      - dev
 
     # Host filesystem
     htdocs: httpdocs # document root expected by apache

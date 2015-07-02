@@ -4,8 +4,8 @@
   remote_user: 401e
   gather_facts: no
   roles:
-    - apache
-    - mysql
+    - apache # remove for plesk
+    - mysql # remove for plesk
     - application
   vars:
     # Project
@@ -23,6 +23,8 @@
 
     # Host apache
     site_domain: # domain name to put in vhost. Should NOT have www.
+    env_vars:
+      - prod
 
     # Host filesystem
     htdocs: htdocs # document root expected by apache
