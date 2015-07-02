@@ -1,7 +1,20 @@
 # deploykit
 Ansible based Drupal deployment kit
 
-### Usage
+### Basic Usage
+To set up a site, you will run the following from the ansible directory:
+
+    make setup.<env> # where env could be dev, stg, or prd
+
+To deploy, you will run:
+
+    make deploy.<env> # where env could be dev, stg, or prd
+
+Finally, to launch a site, you will run:
+
+    make launch.<env> # where env could be dev, stg, or prd
+
+### Advanced Usage
 From the ansible directory, you will run:
 
     ansible-playbook <env>.yml # where env could be dev, stg, or prd
