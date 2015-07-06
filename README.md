@@ -1,6 +1,9 @@
 # deploykit
 Ansible based Drupal deployment kit
 
+### Requirements
+You will need to have [Ansible](http://docs.ansible.com/intro_installation.html) installed. Ansible itself requires python.
+
 ### Setup
 Before deploying, you will need to set up some site specific variables and host information.
 
