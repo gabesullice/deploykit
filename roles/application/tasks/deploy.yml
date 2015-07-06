@@ -15,6 +15,7 @@
 - name: get latest application repo
   git:
     dest={{ sites_directory }}/{{ site_name }}/application/shared/repository
+    depth=1
     version={{ git_branch }}
     accept_hostkey=yes
     repo=ssh://git@github.com/{{ git_org }}/{{ git_repo }}.git
