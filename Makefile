@@ -18,3 +18,9 @@ setup.prd:
 
 setup.dev:
 	ansible-playbook $(flags) -i $(hosts) -t setup dev.yml
+
+revert.prd:
+	ansible-playbook $(flags) -i $(hosts) -t revert prd.yml
+
+revert.dev:
+	ansible-playbook $(flags) -i $(hosts) -t revert dev.yml

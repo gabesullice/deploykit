@@ -6,6 +6,7 @@
     src={{ sites_directory }}/{{ site_name }}/application/releases/{{ timestamp.stdout }}
     state=link
   tags:
+    - revert
     - release
 
 - name: remove oldest releases
