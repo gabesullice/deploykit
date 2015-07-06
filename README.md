@@ -1,6 +1,15 @@
 # deploykit
 Ansible based Drupal deployment kit
 
+### Contents
+- [Requirements](#requirements)
+- [Setup](#setup)
+- [Basic Usage](#basic-usage)
+- [Advanced Usage](#advanced-usage)
+- [Why use DeployKit?](#why-use-deploykit)
+- [Project Structure](#project-structure)
+- [Tags](#tags)
+
 ### Requirements
 You will need to have [Ansible](http://docs.ansible.com/intro_installation.html) installed. Ansible itself requires python.
 
@@ -39,7 +48,7 @@ You may also exclude portions of the process with `--skip-tags`:
 
     ansible-playbook <env>.yml --skip-tags launch # Does everything but symlink ht(s)docs to app/current
 
-### Advantages
+### Why use DeployKit?
 - Start to finish
   - Creates vhosts, databases, and db users
   - Create local-settins.inc files per environment for you
@@ -63,11 +72,7 @@ You may also exclude portions of the process with `--skip-tags`:
   - Replace the cap directory w/ this, and set it up.
   - In theory, shouldn't break deployments going forward (needs testing)
 
-### Disadvantages
-- Different
-- Need python, ansible installed
-
-### Structure
+### Project Structure
 The entry point begins in the top level YAML file. There should be one file per environment. Each file specifies roles to provision. This set-up has 3 roles: apache, mysql, and application. Within each roles, there may be 3 dirs: templates, tasks, and handlers.
 
 - Roles
@@ -99,4 +104,5 @@ You may notice that many of the tasks define `tags`. These tags allow you to run
 - setup
 - deploy
 - release
+- revert
 - launch
