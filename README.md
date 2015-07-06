@@ -1,4 +1,4 @@
-# deploykit
+# DeployKit
 Ansible based Drupal deployment kit
 
 ### Contents
