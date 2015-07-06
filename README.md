@@ -35,6 +35,10 @@ Finally, to launch a site, you will run:
 
     make launch.<env> # where env could be dev, stg, or prd
 
+If you need to revert in a pinch, that's just as easy, run:
+
+    make revert.<env>
+
 ### Advanced Usage
 From the ansible directory, you will run:
 
