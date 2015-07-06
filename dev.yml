@@ -1,6 +1,6 @@
 ---
 
-- hosts: dev3
+- hosts: develop
   remote_user: dev3
   gather_facts: no
   roles:

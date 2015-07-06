@@ -1,6 +1,6 @@
 ---
 
-- hosts: blackmesh
+- hosts: production
   remote_user: 401e
   gather_facts: no
   roles:
