@@ -1,11 +1,19 @@
+- name: ensure mysql python package is present
+  yum: name=MySQL-python state=present
+  tags:
+    - mysql
+    - setup
+    
 - name: ensure database is present
-  mysql_db: name={{ db_name }} state=present collation=utf8_general_ci
+  mysql_db: name={{ db_name }} state=present collation=utf8_general_ci login_host={{ ansible_hostname }}
+  become: yes
+  become_method: sudo
   tags:
     - mysql
     - setup
 
 - name: create a database user
-  mysql_user: name={{ db_user }} password={{ db_pass }} priv={{ db_name }}.*:ALL host=localhost state=present
+  mysql_user: name={{ db_user }} password={{ db_pass }} priv={{ db_name }}.*:ALL host=localhost state=present login_host={{ ansible_hostname }}
   tags:
     - mysql
     - setup
