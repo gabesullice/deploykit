@@ -31,4 +31,4 @@
     htsdocs: htsdocs # ibid.
     file_owner: 401e
     file_group: apache
-    sites_directory: /var/www/vhosts/elevatedthird.com
+    sites_directory: /var/www

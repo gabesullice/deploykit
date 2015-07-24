@@ -20,7 +20,11 @@ Before deploying, you will need to set up some site specific variables and host 
 
 Edit the hosts file and add any IP addresses for dev, staging, and/or production servers.
 
-Next, you will need to set up some variables used by the deploy scripts. For example, edit the dev.yml file. You will need to add variables like server users, site name, git repo, etc. Once you've done this, you will be able to deploy to that environment. No more set up is required.
+Next, you will need to set up some variables used by the deploy scripts. Templates for these are available as \<env\>.yml.example. To set up each one simply copy and edit them.
+
+    cp <env>.yml.example <env>.yml # where <env> == dev || stg || prd
+
+For example, edit the dev.yml file. You will need to add variables like server users, site name, git repo, etc. Once you've done this, you will be able to deploy to that environment. No more set up is required.
 
 ### Basic Usage
 To set up a site, you will run the following from the ansible directory:
