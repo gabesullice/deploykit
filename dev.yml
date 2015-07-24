@@ -1,8 +1,7 @@
 ---
 
 - hosts: develop
-  remote_user: dev3
-  gather_facts: no
+  remote_user: 401e
   roles:
     - apache # remove for plesk
     - mysql # remove for blesk
@@ -24,11 +23,12 @@
     # Host apache
     site_domain: # domain name to put in vhost. Should NOT have www.
     env_vars:
+      - blackmesh
       - dev
 
     # Host filesystem
-    htdocs: httpdocs # document root expected by apache
-    htsdocs: httpsdocs # ibid.
-    file_owner: dev3
+    htdocs: htdocs # document root expected by apache
+    htsdocs: htsdocs # ibid.
+    file_owner: 401e
     file_group: apache
     sites_directory: /var/www/vhosts/elevatedthird.com
