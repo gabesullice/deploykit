@@ -2,7 +2,7 @@
 
 - name: apply files directory permissions
   become: yes
-  become_method: sudo
+  become_method: su
   file:
     path={{ sites_directory }}/{{ site_name }}/application/shared/default/files
     owner={{ file_owner }}
@@ -40,7 +40,7 @@
   
 - name: ensure proper release permissions
   become: yes
-  become_method: sudo
+  become_method: su
   file:
     path={{ sites_directory }}/{{ site_name }}/application/releases/{{ timestamp.stdout }}
     owner={{ file_owner }}
