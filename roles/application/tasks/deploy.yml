@@ -1,24 +1,5 @@
 ---
 
-- name: provision settings file
-  become: yes
-  become_method: su
-  command: mv {{ sites_directory }}/{{ site_name }}/application/shared/repository/{{ drupal_root }}/sites/default/settings.php {{ sites_directory }}/{{ site_name }}/application/shared/default/settings.php
-  tags:
-    - deploy
-
-- name: set settings file permissions
-  become: yes
-  become_method: su
-  file:
-    path={{ sites_directory }}/{{ site_name }}/application/shared/default/settings.php
-    owner={{ file_owner }}
-    group={{ file_group }}
-    mode=0444
-    state=file
-  tags:
-    - deploy
-
 - name: ensure local settings file is present
   become: yes
   become_method: su
@@ -39,5 +20,24 @@
     accept_hostkey=yes
     force=yes
     repo=ssh://git@github.com/{{ git_org }}/{{ git_repo }}.git
+  tags:
+    - deploy
+
+- name: provision settings file
+  become: yes
+  become_method: su
+  command: mv {{ sites_directory }}/{{ site_name }}/application/shared/repository/{{ drupal_root }}/sites/default/settings.php {{ sites_directory }}/{{ site_name }}/application/shared/default/settings.php
+  tags:
+    - deploy
+
+- name: set settings file permissions
+  become: yes
+  become_method: su
+  file:
+    path={{ sites_directory }}/{{ site_name }}/application/shared/default/settings.php
+    owner={{ file_owner }}
+    group={{ file_group }}
+    mode=0444
+    state=file
   tags:
     - deploy
