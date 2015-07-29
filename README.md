@@ -14,17 +14,18 @@ Ansible based Drupal deployment kit
 You will need to have [Ansible](http://docs.ansible.com/intro_installation.html) installed. Ansible itself requires python.
 
 ### Setup
-Before deploying, you will need to set up some site specific variables and host information.
+Before deploying, you will need to set up some site specific variables and host information. These settings live outside the deploykit directory in a separate directory named `settings`. The 4 requites files are:
 
-    cp hosts.example hosts
+    hosts
+    dev.yml
+    stg.yml
+    prd.yml
 
-Edit the hosts file and add any IP addresses for dev, staging, and/or production servers.
+If you are also using [StarterKit](https://github.com/elevatedthird/starterkit), these should already be provisioned by its `make init` command. If you are not, example files for these are provided in this repo.
 
-Next, you will need to set up some variables used by the deploy scripts. Templates for these are available as \<env\>.yml.example. To set up each one simply copy and edit them.
+First, edit the hosts file and add any IP addresses for dev, staging, and/or production servers.
 
-    cp <env>.yml.example <env>.yml # where <env> == dev || stg || prd
-
-For example, edit the dev.yml file. You will need to add variables like server users, site name, git repo, etc. Once you've done this, you will be able to deploy to that environment. No more set up is required.
+In each of the YAML files, you will need to add variables like server users, site name, git repo, etc. before deploying to that environment. Once you've done this, you can follow the basic [steps below](#basic-usage).
 
 ### Basic Usage
 To set up a site, you will run the following from the ansible directory:
