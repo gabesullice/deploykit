@@ -1,26 +1,43 @@
-hosts=hosts
+hosts=../settings/hosts
+
+devplay=../settings/dev.yml
+stgplay=../settings/dev.yml
+prdplay=../settings/dev.yml
+
+ROLES_PATH=$(shell pwd)/roles
+
 flags=--ask-become-pass
 
+env_set=export ANSIBLE_ROLES_PATH=$(ROLES_PATH)
+
 launch.prd:
-	ansible-playbook $(flags) -i $(hosts) -t launch prd.yml
+	$(env_set) && \
+		ansible-playbook $(flags) -i $(hosts) -t launch $(prdplay)
 
 launch.dev:
-	ansible-playbook $(flags) -i $(hosts) -t launch dev.yml
+	$(env_set) && \
+		ansible-playbook $(flags) -i $(hosts) -t launch $(devplay)
 
 deploy.prd:
-	ansible-playbook $(flags) -i $(hosts) -t "deploy,release" prd.yml
+	$(env_set) && \
+		ansible-playbook $(flags) -i $(hosts) -t "deploy,release" $(prdplay)
 
 deploy.dev:
-	ansible-playbook $(flags) -i $(hosts) -t "deploy,release" dev.yml
+	$(env_set) && \
+		ansible-playbook $(flags) -i $(hosts) -t "deploy,release" $(devplay)
 
 setup.prd:
-	ansible-playbook $(flags) -i $(hosts) -t setup prd.yml
+	$(env_set) && \
+		ansible-playbook $(flags) -i $(hosts) -t setup $(prdplay)
 
 setup.dev:
-	ansible-playbook $(flags) -i $(hosts) -t setup dev.yml
+	$(env_set) && \
+		ansible-playbook $(flags) -i $(hosts) -t setup $(devplay)
 
 revert.prd:
-	ansible-playbook $(flags) -i $(hosts) -t revert prd.yml
+	$(env_set) && \
+		ansible-playbook $(flags) -i $(hosts) -t revert $(prdplay)
 
 revert.dev:
-	ansible-playbook $(flags) -i $(hosts) -t revert dev.yml
+	$(env_set) && \
+		ansible-playbook $(flags) -i $(hosts) -t revert $(devplay)
