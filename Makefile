@@ -1,8 +1,8 @@
 hosts=../settings/hosts
 
 devplay=../settings/dev.yml
-stgplay=../settings/dev.yml
-prdplay=../settings/dev.yml
+stgplay=../settings/stg.yml
+prdplay=../settings/prd.yml
 
 ROLES_PATH=$(shell pwd)/roles
 

@@ -25,8 +25,8 @@
     # Host apache
     site_domain:      # domain name to put in vhost. Should NOT have www.
     env_vars:
-      - blackmesh
-      - dev
+      - AH_SITE_SERVER blackmesh
+      - AH_SITE_ENVIRONMENT dev
 
     # Host filesystem
     htdocs: htdocs            # document root expected by apache
