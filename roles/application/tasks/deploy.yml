@@ -19,6 +19,7 @@
     version={{ git_branch }}
     accept_hostkey=yes
     force=yes
+    recursive=yes
     repo=ssh://git@github.com/{{ git_org }}/{{ git_repo }}.git
   tags:
     - deploy
