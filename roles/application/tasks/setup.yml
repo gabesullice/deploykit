@@ -2,7 +2,7 @@
 
 - name: apply directory structure
   become: yes
-  become_method: su
+  become_method: sudo
   file: 
     path={{ sites_directory }}/{{ site_name }}/{{ item.path }}
     owner={{ file_owner }}

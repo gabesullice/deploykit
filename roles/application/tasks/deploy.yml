@@ -2,7 +2,7 @@
 
 - name: ensure local settings file is present
   become: yes
-  become_method: su
+  become_method: sudo
   template:
     src=local-settings.j2
     dest={{ sites_directory }}/{{ site_name }}/application/shared/default/local-settings.inc
@@ -26,14 +26,14 @@
 
 - name: provision settings file
   become: yes
-  become_method: su
+  become_method: sudo
   command: mv {{ sites_directory }}/{{ site_name }}/application/shared/repository/{{ drupal_root }}/sites/default/settings.php {{ sites_directory }}/{{ site_name }}/application/shared/default/settings.php
   tags:
     - deploy
 
 - name: set settings file permissions
   become: yes
-  become_method: su
+  become_method: sudo
   file:
     path={{ sites_directory }}/{{ site_name }}/application/shared/default/settings.php
     owner={{ file_owner }}

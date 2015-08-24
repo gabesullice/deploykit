@@ -2,7 +2,7 @@
   
 - name: ensure vhost is present
   become: yes
-  become_method: su
+  become_method: sudo
   template: src=vhost.j2 dest=/etc/httpd/conf.d/{{ site_domain }}.conf mode=0644
   notify:
     - reload httpd
@@ -12,7 +12,7 @@
 
 - name: ensure httpd is started
   become: yes
-  become_method: su
+  become_method: sudo
   service: name=httpd state=started
   tags:
     - apache
