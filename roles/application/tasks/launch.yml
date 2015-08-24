@@ -10,6 +10,8 @@
     force=yes
   become: yes
   become_method: su
+  notify:
+    - reload httpd
   tags:
     - launch
 
@@ -23,6 +25,8 @@
     force=yes
   become: yes
   become_method: su
+  notify:
+    - reload httpd
   tags:
     - launch
 
