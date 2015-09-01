@@ -1,14 +1,21 @@
-# DeployKit
+DeployKit
+---------
 Ansible based Drupal deployment kit
 
 ### Contents
-- [Requirements](#requirements)
-- [Setup](#setup)
-- [Basic Usage](#basic-usage)
-- [Advanced Usage](#advanced-usage)
-- [Why use DeployKit?](#why-use-deploykit)
-- [Project Structure](#project-structure)
-- [Tags](#tags)
+- **Installation**
+  - [Requirements](#requirements)
+  - [Setup](#setup)
+  - [Converting an existing site](#converting-an-existing-site)
+- **Usage**
+  - [Basic Usage](#basic-usage)
+  - [Advanced Usage](#advanced-usage)
+- **Project Docs**
+  - [Why use DeployKit?](#why-use-deploykit)
+  - [Project Structure](#project-structure)
+  - [Tags](#tags)
+
+## Installation
 
 ### Requirements
 You will need to have [Ansible](http://docs.ansible.com/intro_installation.html) installed. Ansible itself requires python.
@@ -40,7 +47,7 @@ DeployKit requires a settings.php file to be committed to the project as DeployK
 
 Therefore, you will need to add and commit `settings.php` to the repo. A template settings.php is available in the StarterKit repo as [default.settings.php](https://github.com/elevatedthird/starterkit/blob/master/default.settings.php). Just copy that into sites/default and the take any special configuration from develop/staging/production.settings.php and put those in the switch statement beginning around [line 569](https://github.com/elevatedthird/starterkit/blob/master/default.settings.php#L569).
 
-*Gotcha* - Don't forget that when deploying, the settings file needs to be committed to the appropriate branch. It's often forgotten to add settings.php via a release to `master`.
+**Gotcha** - Don't forget that when deploying, the settings file needs to be committed to the appropriate branch. It's often forgotten to add settings.php via a release to `master`.
 
 ##### .gitignore
 The `settings.php` file was previously always ignored, however DeployKit needs it to be committed. You will need to remove `*settings*.php` from the project `.gitignore` file so that it can be committed. However, Git will continue to ignore previously ignored files even after they are removed. The fix is to explicitly add your `settings.php` file to be committed with the command below.
@@ -49,6 +56,8 @@ The `settings.php` file was previously always ignored, however DeployKit needs i
 
 ##### docroot/.gitignore
 Drupal itself comes with a `.gitignore` file that may be committed to the repo and will ignore `settings.php`. You will need to remove this if it exists and add `docroot/.gitignore` to the project `.gitignore` so that it will not be added again on the next core update.
+
+## Usage
 
 ### Basic Usage
 To set up a site, you will run the following from the ansible directory:
@@ -79,6 +88,8 @@ You may only wish to do portions of the provisioning process. To only execute a 
 You may also exclude portions of the process with `--skip-tags`:
 
     ansible-playbook <env>.yml --skip-tags launch # Does everything but symlink ht(s)docs to app/current
+
+## Project Docs
 
 ### Why use DeployKit?
 - Start to finish
