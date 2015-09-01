@@ -14,7 +14,7 @@ Ansible based Drupal deployment kit
 You will need to have [Ansible](http://docs.ansible.com/intro_installation.html) installed. Ansible itself requires python.
 
 ### Setup
-Before deploying, you will need to set up some site specific variables and host information. These settings live outside the deploykit directory in a separate directory named `settings`. The 4 requites files are:
+Before deploying, you will need to set up some site specific variables and host information. These settings live outside the deploykit directory in a separate directory named `settings`. The 4 required files are:
 
     hosts
     dev.yml
@@ -26,6 +26,29 @@ If you are also using [StarterKit](https://github.com/elevatedthird/starterkit),
 First, edit the hosts file and add any IP addresses for dev, staging, and/or production servers.
 
 In each of the YAML files, you will need to add variables like server users, site name, git repo, etc. before deploying to that environment. Once you've done this, you can follow the basic [steps below](#basic-usage).
+
+### Converting an existing site
+
+Beyond the files needed and listed above, a few changes need to be made to the site repo to take advantage of DeployKit. Those are:
+
+    settings.php
+    .gitignore
+    docroot/.gitignore
+
+##### settings.php
+DeployKit requires a settings.php file to be committed to the project as DeployKit will automatically create a `local-settings.inc` file on the remote host for you, so you do not need to commit credentials to the settings file. In order for Drupal to read this local-settings.inc file, the `settings.php` file needs to include it. DeployKit will also set a few environment variables on the dev/stage/prod server that allow you to specify different configuration per environment. Again, the `settings.php` file needs to know to look for these.
+
+Therefore, you will need to add and commit `settings.php` to the repo. A template settings.php is available in the StarterKit repo as [default.settings.php](https://github.com/elevatedthird/starterkit/blob/master/default.settings.php). Just copy that into sites/default and the take any special configuration from develop/staging/production.settings.php and put those in the switch statement beginning around [line 569](https://github.com/elevatedthird/starterkit/blob/master/default.settings.php#L569).
+
+*Gotcha* - Don't forget that when deploying, the settings file needs to be committed to the appropriate branch. It's often forgotten to add settings.php via a release to `master`.
+
+##### .gitignore
+The `settings.php` file was previously always ignored, however DeployKit needs it to be committed. You will need to remove `*settings*.php` from the project `.gitignore` file so that it can be committed. However, Git will continue to ignore previously ignored files even after they are removed. The fix is to explicitly add your `settings.php` file to be committed with the command below.
+
+    git add -f sites/default/settings.php # Note the -f flag
+
+##### docroot/.gitignore
+Drupal itself comes with a `.gitignore` file that may be committed to the repo and will ignore `settings.php`. You will need to remove this if it exists and add `docroot/.gitignore` to the project `.gitignore` so that it will not be added again on the next core update.
 
 ### Basic Usage
 To set up a site, you will run the following from the ansible directory:
