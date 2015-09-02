@@ -6,9 +6,12 @@ prdplay=../settings/prd.yml
 
 ROLES_PATH=$(shell pwd)/roles
 
-flags=--ask-become-pass
+flags_default=
+flags=$(flags_default)
 
 env_set=export ANSIBLE_ROLES_PATH=$(ROLES_PATH)
+
+include ../settings/deploykit.conf
 
 #####################
 #### Development ####
@@ -16,23 +19,23 @@ env_set=export ANSIBLE_ROLES_PATH=$(ROLES_PATH)
 
 setup.dev:
 	$(env_set) && \
-		ansible-playbook $(flags) -i $(hosts) -t setup $(devplay)
+		ansible-playbook $(flags) -i $(hosts) $(sudo) -t setup $(devplay)
 
 deploy.dev:
 	$(env_set) && \
-		ansible-playbook $(flags) -i $(hosts) -t "deploy,release" $(devplay)
+		ansible-playbook $(flags) -i $(hosts) $(sudo) -t "deploy,release" $(devplay)
 
 launch.dev:
 	$(env_set) && \
-		ansible-playbook $(flags) -i $(hosts) -t launch $(devplay)
+		ansible-playbook $(flags) -i $(hosts) $(sudo) -t launch $(devplay)
 
 revert.dev:
 	$(env_set) && \
-		ansible-playbook $(flags) -i $(hosts) -t revert $(devplay)
+		ansible-playbook $(flags) -i $(hosts) $(sudo) -t revert $(devplay)
 
 itall.dev:
 	$(env_set) && \
-		ansible-playbook $(flags) -i $(hosts) -t "setup,deploy,release,launch" $(devplay)
+		ansible-playbook $(flags) -i $(hosts) $(sudo) -t "setup,deploy,release,launch" $(devplay)
 
 #################
 #### Staging ####

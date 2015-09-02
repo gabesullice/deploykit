@@ -9,6 +9,7 @@
   tags:
     - apache
     - setup
+    - sudo
 
 - name: ensure httpd is started
   become: yes
@@ -17,3 +18,4 @@
   tags:
     - apache
     - setup
+    - sudo

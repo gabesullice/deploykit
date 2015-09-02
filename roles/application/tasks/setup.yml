@@ -1,6 +1,6 @@
 ---
 
-- name: apply directory structure
+- name: create directory structure
   become: yes
   become_method: sudo
   file: 
@@ -10,11 +10,29 @@
     mode={{ item.mode }}
     state=directory
   with_items:
-    - { path: 'application', mode: '0755' }
-    - { path: 'application/shared', mode: '0755' }
-    - { path: 'application/shared/default', mode: '0775' }
-    - { path: 'application/shared/private', mode: '0774' }
-    - { path: 'application/shared/private/tmp', mode: '0774' }
-    - { path: 'application/releases', mode: '0755' }
+    - { path: 'application', mode: '0750' }
+    - { path: 'application/shared', mode: '0750' }
+    - { path: 'application/shared/default', mode: '0750' }
+    - { path: 'application/shared/repository', mode: '0750' }
+    - { path: 'application/shared/private', mode: '0770' }
+    - { path: 'application/shared/private/tmp', mode: '0770' }
+    - { path: 'application/releases', mode: '0750' }
   tags:
     - setup
+    - sudo
+    - permissions
+
+- name: provision local settings file
+  become: yes
+  become_method: sudo
+  template:
+    src=local-settings.j2
+    dest={{ sites_directory }}/{{ site_name }}/application/shared/default/local-settings.inc
+    owner={{ file_owner }}
+    group={{ file_group }}
+    mode=0440
+  tags:
+    - setup
+    - settings
+    - sudo
+    - permissions

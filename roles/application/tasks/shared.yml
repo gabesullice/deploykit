@@ -1,5 +1,44 @@
 ---
 
+- name: get latest application repo
+  git:
+    dest={{ sites_directory }}/{{ site_name }}/application/shared/repository
+    depth=1
+    version={{ git_branch }}
+    accept_hostkey=yes
+    force=yes
+    recursive=yes
+    repo=ssh://git@github.com/{{ git_org }}/{{ git_repo }}.git
+  tags:
+    - setup
+    - deploy
+  notify:
+    - apply directory permissions inside repository
+    - apply files permissions inside repository
+
+- name: provision settings file
+  become: yes
+  become_method: sudo
+  command: cp {{ sites_directory }}/{{ site_name }}/application/shared/repository/{{ drupal_root }}/sites/default/settings.php {{ sites_directory }}/{{ site_name }}/application/shared/default/settings.php
+  tags:
+    - setup
+    - settings
+
+- name: set settings file permissions
+  become: yes
+  become_method: sudo
+  file:
+    path={{ sites_directory }}/{{ site_name }}/application/shared/default/settings.php
+    owner={{ file_owner }}
+    group={{ file_group }}
+    mode=0440
+    state=file
+  tags:
+    - setup
+    - settings
+    - sudo
+    - permissions
+
 - name: apply files directory permissions
   become: yes
   become_method: sudo
@@ -7,32 +46,35 @@
     path={{ sites_directory }}/{{ site_name }}/application/shared/default/files
     owner={{ file_owner }}
     group={{ file_group }}
-    mode=0775
+    mode=0770
     state=directory
     recurse=yes
   tags:
     - setup
-    - deploy
+    - sudo
+    - permissions
 
 - name: apply files permissions inside files directory
   become: yes
   become_method: sudo
-  command: find . -type f -exec chmod 764 '{}' \+
+  command: find . -type f -exec chmod 660 '{}' \+
   args:
     chdir: "{{ sites_directory }}/{{ site_name }}/application/shared/default/files"
   tags:
     - setup
-    - deploy
+    - sudo
+    - permissions
 
 - name: apply directory permissions inside files directory
   become: yes
   become_method: sudo
-  command: find . -type d -exec chmod 775 '{}' \+
+  command: find . -type d -exec chmod 770 '{}' \+
   args:
     chdir: "{{ sites_directory }}/{{ site_name }}/application/shared/default/files"
   tags:
     - setup
-    - deploy
+    - sudo
+    - permissions
 
 - name: apply ownership inside files directory
   become: yes
@@ -42,13 +84,26 @@
     chdir: "{{ sites_directory }}/{{ site_name }}/application/shared/default/files"
   tags:
     - setup
-    - deploy
+    - sudo
+    - permissions
 
 - name: create latest release
-  command: cp -ra {{ sites_directory }}/{{ site_name }}/application/shared/repository/{{ drupal_root }} {{ sites_directory }}/{{ site_name }}/application/releases/{{ timestamp.stdout }} 
+  command: cp -ra {{ sites_directory }}/{{ site_name }}/application/shared/repository/{{ drupal_root }} {{ sites_directory }}/{{ site_name }}/application/releases/{{ timestamp.stdout }}
   tags:
     - deploy
     - release
+
+- name: apply ownership inside docroot
+  #become: yes
+  #become_method: sudo
+  command: find . -exec chown {{ file_owner }}:{{ file_group }} '{}' \+
+  args:
+    chdir: "{{ sites_directory }}/{{ site_name }}/application/releases/{{ timestamp.stdout }}"
+  tags:
+    - deploy
+    - release
+    #- sudo
+    - permissions
 
 - name: remove default directory
   file:
@@ -64,19 +119,6 @@
     src={{ sites_directory }}/{{ site_name }}/application/shared/default
     force=yes
     state=link
-  tags:
-    - deploy
-    - release
-  
-- name: ensure proper release permissions
-  become: yes
-  become_method: sudo
-  file:
-    path={{ sites_directory }}/{{ site_name }}/application/releases/{{ timestamp.stdout }}
-    owner={{ file_owner }}
-    group={{ file_group }}
-    mode=0755
-    recurse=yes
   tags:
     - deploy
     - release

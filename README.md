@@ -9,6 +9,7 @@ Ansible based Drupal deployment kit
   - [Converting an existing site](#converting-an-existing-site)
 - **Usage**
   - [Basic Usage](#basic-usage)
+  - [Using DeployKit without `sudo`](#sudo-less-deploys)
   - [Advanced Usage](#advanced-usage)
 - **Project Docs**
   - [Why use DeployKit?](#why-use-deploykit)
@@ -27,12 +28,15 @@ Before deploying, you will need to set up some site specific variables and host 
     dev.yml
     stg.yml
     prd.yml
+    deploykit.conf
 
 If you are also using [StarterKit](https://github.com/elevatedthird/starterkit), these should already be provisioned by its `make init` command. If you are not, example files for these are provided in this repo.
 
 First, edit the hosts file and add any IP addresses for dev, staging, and/or production servers.
 
 In each of the YAML files, you will need to add variables like server users, site name, git repo, etc. before deploying to that environment. Once you've done this, you can follow the basic [steps below](#basic-usage).
+
+There is a `deploykit.conf.example` file available. Copy it into your project settings directory so that it exists as `../settings/deploykit.conf`.
 
 ### Converting an existing site
 
@@ -75,6 +79,14 @@ Finally, to launch a site, you will run:
 If you need to revert in a pinch, that's just as easy, run:
 
     make revert.<env>
+
+### `sudo`-less deploys
+To enabled deployments without the use of `sudo`. Make sure your `deploykit.conf` has the following lines so that `sudo` tasks are skipped and so that we don't ask for the `sudo` password.
+
+    ```make
+    flags=$(flags_default) --skip-tags sudo
+    #flags=$(flags_default) --ask-become-pass
+    ```
 
 ### Advanced Usage
 From the ansible directory, you will run:

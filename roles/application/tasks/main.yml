@@ -16,7 +16,6 @@
     - release
 
 - include: setup.yml
-- include: deploy.yml
-- include: launch.yml
 - include: shared.yml
+- include: launch.yml
 - include: release.yml

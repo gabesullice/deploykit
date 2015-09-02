@@ -11,6 +11,7 @@
   tags:
     - mysql
     - setup
+    - sudo
 
 - name: create a database user
   mysql_user: name={{ db_user }} password={{ db_pass }} priv={{ db_name }}.*:ALL host=localhost state=present login_host={{ mysql_login_host }}
@@ -19,3 +20,4 @@
   tags:
     - mysql
     - setup
+    - sudo
