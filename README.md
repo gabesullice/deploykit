@@ -81,12 +81,14 @@ If you need to revert in a pinch, that's just as easy, run:
     make revert.<env>
 
 ### `sudo`-less deploys
-To enabled deployments without the use of `sudo`. Make sure your `deploykit.conf` has the following lines so that `sudo` tasks are skipped and so that we don't ask for the `sudo` password.
+To enable `sudo`-less deployments, make sure your `deploykit.conf` has the following lines.
 
-    ```make
-    flags=$(flags_default) --skip-tags sudo
-    #flags=$(flags_default) --ask-become-pass
-    ```
+```make
+flags=$(flags_default) --skip-tags sudo
+#flags=$(flags_default) --ask-become-pass
+```
+
+This will ensure that any `sudo` tasks are skipped and that DeployKit won't ask for the `sudo` password.
 
 ### Advanced Usage
 From the ansible directory, you will run:
