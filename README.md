@@ -90,7 +90,7 @@ flags=$(flags_default) --skip-tags sudo
 
 This will ensure that any `sudo` tasks are skipped and that DeployKit won't ask for the `sudo` password.
 
-**Remember**: You will still need to go through the whole deploy process at least once *with* `sudo` enabled. This only allows for *ongoing* deploys without usind `sudo`.
+**Remember**: You will still need to go through the whole deploy process at least once *with* `sudo` enabled. This only allows for *ongoing* deploys without using `sudo`.
 
 ### Advanced Usage
 From the ansible directory, you will run:
