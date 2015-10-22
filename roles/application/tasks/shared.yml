@@ -3,12 +3,11 @@
 - name: get latest application repo
   git:
     dest={{ sites_directory }}/{{ site_name }}/application/shared/repository
-    depth=1
     version={{ git_branch }}
     accept_hostkey=yes
     force=yes
     recursive=yes
-    repo=ssh://git@github.com/{{ git_org }}/{{ git_repo }}.git
+    repo=ssh://{{ git_host }}/{{ git_org }}/{{ git_repo }}.git
   tags:
     - setup
     - deploy
@@ -18,7 +17,6 @@
 
 - name: provision settings file
   become: yes
-  become_method: sudo
   command: cp {{ sites_directory }}/{{ site_name }}/application/shared/repository/{{ drupal_root }}/sites/default/settings.php {{ sites_directory }}/{{ site_name }}/application/shared/default/settings.php
   tags:
     - setup
@@ -26,7 +24,6 @@
 
 - name: set settings file permissions
   become: yes
-  become_method: sudo
   file:
     path={{ sites_directory }}/{{ site_name }}/application/shared/default/settings.php
     owner={{ file_owner }}
@@ -41,7 +38,6 @@
 
 - name: apply files directory permissions
   become: yes
-  become_method: sudo
   file:
     path={{ sites_directory }}/{{ site_name }}/application/shared/default/files
     owner={{ file_owner }}
@@ -56,7 +52,6 @@
 
 - name: apply files permissions inside files directory
   become: yes
-  become_method: sudo
   command: find . -type f -exec chmod 660 '{}' \+
   args:
     chdir: "{{ sites_directory }}/{{ site_name }}/application/shared/default/files"
@@ -67,7 +62,6 @@
 
 - name: apply directory permissions inside files directory
   become: yes
-  become_method: sudo
   command: find . -type d -exec chmod 770 '{}' \+
   args:
     chdir: "{{ sites_directory }}/{{ site_name }}/application/shared/default/files"
@@ -78,7 +72,6 @@
 
 - name: apply ownership inside files directory
   become: yes
-  become_method: sudo
   command: find . -exec chown {{ file_owner }}:{{ file_group }} '{}' \+
   args:
     chdir: "{{ sites_directory }}/{{ site_name }}/application/shared/default/files"
@@ -94,8 +87,7 @@
     - release
 
 - name: apply ownership inside docroot
-  #become: yes
-  #become_method: sudo
+  become: yes
   command: find . -exec chown {{ file_owner }}:{{ file_group }} '{}' \+
   args:
     chdir: "{{ sites_directory }}/{{ site_name }}/application/releases/{{ timestamp.stdout }}"

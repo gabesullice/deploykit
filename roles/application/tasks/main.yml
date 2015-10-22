@@ -1,5 +1,7 @@
 ---
 
+- include: setup.yml
+
 - name: set release timestamp
   shell:
     ls | tail -n 2 | head -n 1
@@ -15,7 +17,6 @@
     - deploy
     - release
 
-- include: setup.yml
 - include: shared.yml
 - include: launch.yml
 - include: release.yml

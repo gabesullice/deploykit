@@ -1,0 +1,22 @@
+# Project
+site_name:                    # Directory where htdocs and application will live
+git_host: git@bitbucket.org   # Name of the git user/organization
+git_org: atendesigngroup      # Name of the git user/organization
+git_repo:                     # Name of the git repository
+drupal_root: docroot          # Dir which has index.php
+git_branch:                   # This is the branch that will be deployed to the environment
+max_releases: 10              # Number of past releases to keep
+
+# Host mysql
+db_name:      # name of the db
+db_user:      # name of the db user
+
+# Host apache
+site_domain:      # domain name to put in vhost. Should NOT have www.
+
+# Host filesystem
+htdocs: htdocs            # document root expected by apache
+htsdocs: htsdocs          # ibid.
+file_owner: aten
+file_group: www-data
+sites_directory: /var/www
