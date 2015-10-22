@@ -21,6 +21,7 @@
   tags:
     - setup
     - settings
+    - deploy
 
 - name: set settings file permissions
   become: yes
