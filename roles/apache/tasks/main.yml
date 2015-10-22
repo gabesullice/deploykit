@@ -12,7 +12,7 @@
 
 - name: ensure htpasswd is present on dev and stage
   become: yes
-  command: htpasswd -b .htpasswd {{ htpasswd_user }} {{ env_var }}
+  command: htpasswd -bc .htpasswd {{ htpasswd_user }} {{ env_var }}
   args:
     chdir: "{{ sites_directory }}/{{ site_name }}"
     creates: "{{ sites_directory }}/{{ site_name }}/.htpasswd"
