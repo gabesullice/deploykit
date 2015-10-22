@@ -1,5 +1,8 @@
 - name: ensure database is present
-  mysql_db: name={{ db_name }} state=present collation=utf8_general_ci login_host={{ mysql_login_host }}
+  mysql_db: name={{ db_name }} state=present collation=utf8_general_ci login_host={{ item }}
+  with_items:
+    - localhost
+    - 127.0.0.1
   become: yes
   tags:
     - mysql
