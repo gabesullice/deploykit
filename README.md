@@ -26,15 +26,15 @@ Before deploying, you will need to set up some site specific variables and host 
 
     hosts
     dev.yml
-    stg.yml
-    prd.yml
+    stage.yml
+    prod.yml
     deploykit.conf
 
 If you are also using [StarterKit](https://github.com/elevatedthird/starterkit), these should already be provisioned by its `make init` command. If you are not, example files for these are provided in this repo.
 
 First, edit the hosts file and add any IP addresses for dev, staging, and/or production servers.
 
-In each of the YAML files, you will need to add variables like server users, site name, git repo, etc. before deploying to that environment. Once you've done this, you can follow the basic [steps below](#basic-usage).
+In each of the YAML files, you will need to add variables like site name, database info, git repo, etc. before deploying to that environment. Once you've done this, you can follow the basic [steps below](#basic-usage).
 
 There is a `deploykit.conf.example` file available. Copy it into your project settings directory so that it exists as `../settings/deploykit.conf`.
 
@@ -59,7 +59,7 @@ The `settings.php` file was previously always ignored, however DeployKit needs i
     git add -f sites/default/settings.php # Note the -f flag
 
 ##### docroot/.gitignore
-Drupal itself comes with a `.gitignore` file that may be committed to the repo and will ignore `settings.php`. You will need to remove this if it exists and add `docroot/.gitignore` to the project `.gitignore` so that it will not be added again on the next core update.
+Drupal itself comes with a `.gitignore` file that may already be committed to the repo, it will ignore `settings.php`. You will need to remove this if it exists and add `docroot/.gitignore` to the project `.gitignore` so that it will not be added again on the next core update.
 
 ## Usage
 
@@ -138,7 +138,7 @@ The entry point begins in the top level YAML file. There should be one file per 
   - apache
     - Sets up the vhost, makes sure apache is reloaded whenever the vhost is updated
   - mysql
-    - Creates the database, user, and sets the users passwod
+    - Creates the database, user, and sets that user's passwod
   - application
     - Sets up the file structure
     - Pulls the repo

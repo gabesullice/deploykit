@@ -1,22 +1,23 @@
-- name: ensure mysql python package is present
-  yum: name=MySQL-python state=present
-  tags:
-    - mysql
-    - setup
-    
 - name: ensure database is present
   mysql_db: name={{ db_name }} state=present collation=utf8_general_ci login_host={{ mysql_login_host }}
   become: yes
-  become_method: sudo
   tags:
     - mysql
     - setup
     - sudo
 
 - name: create a database user
-  mysql_user: name={{ db_user }} password={{ db_pass }} priv={{ db_name }}.*:ALL host=localhost state=present login_host={{ mysql_login_host }}
+  mysql_user:
+    name: "{{ db_user }}"
+    password: "{{ db_pass }}"
+    priv: "{{ db_name }}.*:ALL"
+    host: "{{ item }}"
+    state: present
+    login_host: "{{ item }}"
+  with_items:
+    - localhost
+    - 127.0.0.1
   become: yes
-  become_method: sudo
   tags:
     - mysql
     - setup

@@ -2,19 +2,19 @@
   
 - name: ensure vhost is present
   become: yes
-  become_method: sudo
-  template: src=vhost.j2 dest=/etc/httpd/conf.d/{{ site_domain }}.conf mode=0644
+  template: src=vhost.j2 dest=/etc/apache2/sites-available/{{ site_domain }}.conf mode=0644
   notify:
-    - reload httpd
+    - reload apache2
   tags:
     - apache
     - setup
     - sudo
 
-- name: ensure httpd is started
+- name: enable vhost
   become: yes
-  become_method: sudo
-  service: name=httpd state=started
+  command: a2ensite {{ site_domain }} creates=/etc/apache2/sites-available/{{ site_domain }}
+  notify:
+    - reload apache2
   tags:
     - apache
     - setup

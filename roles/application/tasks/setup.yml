@@ -2,7 +2,6 @@
 
 - name: create directory structure
   become: yes
-  become_method: sudo
   file: 
     path={{ sites_directory }}/{{ site_name }}/{{ item.path }}
     owner={{ file_owner }}
@@ -24,7 +23,6 @@
 
 - name: provision local settings file
   become: yes
-  become_method: sudo
   template:
     src=local-settings.j2
     dest={{ sites_directory }}/{{ site_name }}/application/shared/default/local-settings.inc

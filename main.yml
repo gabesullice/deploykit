@@ -1,0 +1,16 @@
+---
+
+- hosts: all
+  roles:
+    - apache
+    - mysql
+    - application
+
+  vars_files:
+    - "../settings/{{ env_var }}.yml"
+  
+  vars_prompt:
+    - name: "db_pass"
+      prompt: "Enter the site's mysql user's password (new or existing)"
+      private: yes
+      default: skip

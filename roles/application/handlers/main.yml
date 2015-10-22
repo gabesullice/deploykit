@@ -1,15 +1,13 @@
 ---
 
-- name: reload httpd
+- name: reload apache2
   become: yes
-  become_method: sudo
-  service: name=httpd state=reloaded
+  service: name=apache2 state=reloaded
   tags:
     - launch
 
 - name: apply directory permissions inside repository
   become: yes
-  become_method: sudo
   when: ask_become_pass is defined
   command: find . -type d -exec chmod 750 '{}' \+
   args:
@@ -22,7 +20,6 @@
 
 - name: apply files permissions inside repository
   become: yes
-  become_method: sudo
   when: ask_become_pass is defined
   command: find . -type f -exec chmod 740 '{}' \+
   args:
