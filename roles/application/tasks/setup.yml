@@ -29,7 +29,7 @@
     owner={{ file_owner }}
     group={{ file_group }}
     mode=0440
-  when: db_pass != skip
+  when: db_pass != "skip"
   tags:
     - setup
     - settings

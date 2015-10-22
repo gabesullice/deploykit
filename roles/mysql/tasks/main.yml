@@ -21,7 +21,7 @@
     - localhost
     - 127.0.0.1
   become: yes
-  when: db_pass != skip
+  when: db_pass != "skip"
   tags:
     - mysql
     - setup
