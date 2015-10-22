@@ -1,12 +1,12 @@
 [vagrant]
 
-[staging:vars]
+[vagrant:vars]
 env_var=dev
 ansible_ssh_user=vagrant
 
 [develop]
 
-[staging:vars]
+[develop:vars]
 env_var=dev
 ansible_ssh_user=aten
 
@@ -18,6 +18,6 @@ ansible_ssh_user=aten
 
 [production]
 
-[staging:vars]
+[production:vars]
 env_var=prod
 ansible_ssh_user=aten
