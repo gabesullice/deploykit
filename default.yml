@@ -12,6 +12,7 @@ db_name:      # name of the db
 db_user:      # name of the db user
 
 # Host apache
+htpasswd_user:
 site_domain:      # domain name to put in vhost. Should NOT have www.
 
 # Host filesystem

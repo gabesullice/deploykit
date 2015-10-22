@@ -8,6 +8,14 @@
         Options All
         Allow from all
         AllowOverride All
+
+        {% if env_var != "prod" %}
+        AuthUserFile {{ sites_directory }}/{{ site_name }}/.htpasswd
+        AuthGroupFile /dev/null
+        AuthType Basic
+        AuthName Protected
+        require valid-user
+        {% endif %}
     </Directory>
 
     SetEnv SITE_ENVIRONMENT {{ env_var }}

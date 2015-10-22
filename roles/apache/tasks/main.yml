@@ -10,6 +10,20 @@
     - setup
     - sudo
 
+- name: ensure htpasswd is present on dev and stage
+  become: yes
+  command: htpasswd -b .htpasswd {{ htpasswd_user }} {{ env_var }}
+  args:
+    chdir: "{{ sites_directory }}/{{ site_name }}"
+    creates: "{{ sites_directory }}/{{ site_name }}/.htpasswd"
+  when: env_var != "prod"
+  notify:
+    - reload apache2
+  tags:
+    - apache
+    - setup
+    - sudo
+
 - name: enable vhost
   become: yes
   command: a2ensite {{ site_domain }} creates=/etc/apache2/sites-available/{{ site_domain }}
