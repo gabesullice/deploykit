@@ -4,6 +4,7 @@
   become: yes
   service: name=apache2 state=reloaded
   tags:
+    - application
     - launch
 
 - name: apply directory permissions inside repository
@@ -13,6 +14,7 @@
   args:
     chdir: "{{ sites_directory }}/{{ site_name }}/application/shared/repository"
   tags:
+    - application
     - setup
     - deploy
     - sudo
@@ -25,6 +27,7 @@
   args:
     chdir: "{{ sites_directory }}/{{ site_name }}/application/shared/repository"
   tags:
+    - application
     - setup
     - deploy
     - sudo

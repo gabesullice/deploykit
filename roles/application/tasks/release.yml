@@ -6,6 +6,7 @@
     src={{ sites_directory }}/{{ site_name }}/application/releases/{{ timestamp.stdout }}
     state=link
   tags:
+    - application
     - revert
     - release
 
@@ -14,4 +15,5 @@
     ls | sort -r | tail -n +{{ max_releases + 1 }} | xargs rm -rf
     chdir={{ sites_directory }}/{{ site_name }}/application/releases
   tags:
+    - application
     - release

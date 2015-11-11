@@ -8,12 +8,14 @@
     chdir={{ sites_directory }}/{{ site_name }}/application/releases
   register: timestamp
   tags:
+    - application
     - revert
 
 - name: set release timestamp
   command: date +%Y%m%d%H%M%S
   register: timestamp
   tags:
+    - application
     - deploy
     - release
 

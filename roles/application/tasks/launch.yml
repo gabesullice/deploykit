@@ -12,6 +12,7 @@
   notify:
     - reload apache2
   tags:
+    - application
     - launch
     - sudo
 
@@ -27,5 +28,6 @@
   notify:
     - reload apache2
   tags:
+    - application
     - launch
     - sudo

@@ -9,6 +9,7 @@
     recursive=yes
     repo=ssh://{{ git_host }}/{{ git_org }}/{{ git_repo }}.git
   tags:
+    - application
     - setup
     - deploy
   notify:
@@ -19,6 +20,7 @@
   become: yes
   command: cp {{ sites_directory }}/{{ site_name }}/application/shared/repository/{{ drupal_root }}/sites/default/settings.php {{ sites_directory }}/{{ site_name }}/application/shared/default/settings.php
   tags:
+    - application
     - setup
     - settings
     - deploy
@@ -32,6 +34,7 @@
     mode=0440
     state=file
   tags:
+    - application
     - setup
     - settings
     - sudo
@@ -47,6 +50,7 @@
     state=directory
     recurse=yes
   tags:
+    - application
     - setup
     - sudo
     - permissions
@@ -57,6 +61,7 @@
   args:
     chdir: "{{ sites_directory }}/{{ site_name }}/application/shared/default/files"
   tags:
+    - application
     - setup
     - sudo
     - permissions
@@ -67,6 +72,7 @@
   args:
     chdir: "{{ sites_directory }}/{{ site_name }}/application/shared/default/files"
   tags:
+    - application
     - setup
     - sudo
     - permissions
@@ -77,6 +83,7 @@
   args:
     chdir: "{{ sites_directory }}/{{ site_name }}/application/shared/default/files"
   tags:
+    - application
     - setup
     - sudo
     - permissions
@@ -84,6 +91,7 @@
 - name: create latest release
   command: cp -ra {{ sites_directory }}/{{ site_name }}/application/shared/repository/{{ drupal_root }} {{ sites_directory }}/{{ site_name }}/application/releases/{{ timestamp.stdout }}
   tags:
+    - application
     - deploy
     - release
 
@@ -93,6 +101,7 @@
   args:
     chdir: "{{ sites_directory }}/{{ site_name }}/application/releases/{{ timestamp.stdout }}"
   tags:
+    - application
     - deploy
     - release
     #- sudo
@@ -103,6 +112,7 @@
     path={{ sites_directory }}/{{ site_name }}/application/releases/{{ timestamp.stdout }}/sites/default
     state=absent
   tags:
+    - application
     - deploy
     - release
   
@@ -113,5 +123,6 @@
     force=yes
     state=link
   tags:
+    - application
     - deploy
     - release

@@ -17,6 +17,7 @@
     - { path: 'application/shared/private/tmp', mode: '0770' }
     - { path: 'application/releases', mode: '0750' }
   tags:
+    - application
     - setup
     - sudo
     - permissions
@@ -31,6 +32,7 @@
     mode=0440
   when: db_pass != "skip"
   tags:
+    - application
     - setup
     - settings
     - sudo
